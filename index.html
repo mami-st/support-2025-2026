@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="年末年始（2025-2026年）に生活に困った時の相談先・支援情報をまとめたサイトです。炊き出し、食料配布、相談会、宿泊支援などの情報を地域別に検索できます。">
+  <meta name="theme-color" content="#f8fafc">
+  
+  <title>年末年始 生活支援情報 2025-2026 | 困ったときの相談先リスト</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- スタイルシート -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="header-left">
+      <h1 class="site-title">年末年始 生活支援情報</h1>
+      <p class="site-subtitle">2025年12月27日〜2026年1月5日 | 困ったときの相談先リスト</p>
+      <a href="#" class="about-link" id="about-link">ℹ️ このサイトについて</a>
+    </div>
+    <a href="#emergency-section" class="emergency-link">
+      🆘 緊急相談 →
+    </a>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="main-content">
+    <!-- スクロールで隠れるフィルター部分 -->
+    <section class="filter-section-scroll" aria-label="詳細絞り込み">
+      <!-- 検索ボックス -->
+      <div class="search-box">
+        <label for="search-input" class="sr-only">キーワードで検索</label>
+        <input 
+          type="search" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="🔍 団体名、地域、サービス内容で検索..."
+          autocomplete="off"
+        >
+      </div>
+      
+      <!-- 地域フィルター -->
+      <div class="filter-group">
+        <span class="filter-label">地域</span>
+        <div class="prefecture-filter" id="prefecture-filter">
+          <button type="button" class="pref-btn" data-pref="">すべて</button>
+          <button type="button" class="pref-btn" data-pref="全国">全国</button>
+          <button type="button" class="pref-btn" data-pref="宮城">宮城</button>
+          <button type="button" class="pref-btn" data-pref="千葉">千葉</button>
+          <button type="button" class="pref-btn" data-pref="東京">東京</button>
+          <button type="button" class="pref-btn" data-pref="神奈川">神奈川</button>
+          <button type="button" class="pref-btn" data-pref="愛知">愛知</button>
+          <button type="button" class="pref-btn" data-pref="大阪">大阪</button>
+          <button type="button" class="pref-btn" data-pref="兵庫">兵庫</button>
+          <button type="button" class="pref-btn" data-pref="岡山">岡山</button>
+          <button type="button" class="pref-btn" data-pref="広島">広島</button>
+          <button type="button" class="pref-btn" data-pref="福岡">福岡</button>
+          <button type="button" class="pref-btn" data-pref="鹿児島">鹿児島</button>
+        </div>
+      </div>
+      
+      <!-- 日付フィルター -->
+      <div class="filter-group">
+        <span class="filter-label">日付</span>
+        <div class="date-filter" id="date-filter">
+          <button type="button" class="date-btn" data-date="">すべて</button>
+          <button type="button" class="date-btn" data-date="2025-12-27">12/27（土）</button>
+          <button type="button" class="date-btn" data-date="2025-12-28">12/28（日）</button>
+          <button type="button" class="date-btn" data-date="2025-12-29">12/29（月）</button>
+          <button type="button" class="date-btn" data-date="2025-12-30">12/30（火）</button>
+          <button type="button" class="date-btn" data-date="2025-12-31">12/31（水）</button>
+          <button type="button" class="date-btn" data-date="2026-01-01">1/1（木）</button>
+          <button type="button" class="date-btn" data-date="2026-01-02">1/2（金）</button>
+          <button type="button" class="date-btn" data-date="2026-01-03">1/3（土）</button>
+          <button type="button" class="date-btn" data-date="2026-01-04">1/4（日）</button>
+          <button type="button" class="date-btn" data-date="2026-01-05">1/5（月）</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- スクロール時に固定されるフィルター部分 -->
+    <section class="filter-section-sticky" aria-label="絞り込み">
+      <!-- 支援メニューフィルター（アイコン付きボタン） -->
+      <div class="filter-group">
+        <span class="filter-label">支援メニュー</span>
+        <div class="service-filter" id="service-filter">
+          <button type="button" class="service-btn" data-service="">すべて</button>
+          <button type="button" class="service-btn" data-service="炊き出し">
+            <span class="service-btn-icon">🍚</span>
+            炊き出し
+          </button>
+          <button type="button" class="service-btn" data-service="食料配布">
+            <span class="service-btn-icon">🥡</span>
+            食料配布
+          </button>
+          <button type="button" class="service-btn" data-service="相談会">
+            <span class="service-btn-icon">💬</span>
+            相談会
+          </button>
+          <button type="button" class="service-btn" data-service="電話相談">
+            <span class="service-btn-icon">📞</span>
+            電話相談
+          </button>
+          <button type="button" class="service-btn" data-service="宿泊支援">
+            <span class="service-btn-icon">🏠</span>
+            宿泊支援
+          </button>
+        </div>
+      </div>
+      
+      <!-- 結果件数とリセットボタン -->
+      <div class="filter-actions">
+        <span class="results-count-text">
+          <span class="results-count-number" id="results-count">0</span> 件の支援情報
+          <span class="current-filters" id="current-filters"></span>
+        </span>
+        <button type="button" class="filter-reset" id="filter-reset">
+          🔄 フィルターをリセット
+        </button>
+      </div>
+    </section>
+
+    <!-- 支援情報カード一覧 -->
+    <section class="offers-section" aria-label="支援情報一覧">
+      <div class="offers-grid" id="offers-grid">
+        <!-- JavaScriptで動的に生成 -->
+      </div>
+    </section>
+
+    <!-- 緊急連絡先セクション（フッター前） -->
+    <section class="emergency-section" id="emergency-section" aria-label="緊急連絡先">
+      <h2 class="emergency-title">🆘 今すぐ相談できる窓口</h2>
+      <div class="emergency-list">
+        <!-- よりそいホットライン -->
+        <div class="emergency-item">
+          <div class="emergency-item-name">よりそいホットライン</div>
+          <div class="emergency-item-desc">24時間365日対応・何でも相談できます</div>
+          <a href="tel:0120-279-338" class="emergency-phone">
+            📞 0120-279-338
+          </a>
+          <div style="font-size: 0.75rem; color: #6b7280; margin-top: 0.5rem;">
+            ※岩手・宮城・福島からは 0120-279-226
+          </div>
+        </div>
+        
+        <!-- 孤独・孤立相談ダイヤル -->
+        <div class="emergency-item">
+          <div class="emergency-item-name">孤独・孤立相談ダイヤル</div>
+          <div class="emergency-item-desc">12/25〜1/4は24時間対応（チャット・メール相談も可）</div>
+          <a href="tel:#9999" class="emergency-phone">
+            📞 #9999
+          </a>
+          <a href="https://www.notalone-cao.go.jp/toitsu/" target="_blank" rel="noopener noreferrer" class="emergency-item-link">
+            🌐 詳細・チャット相談はこちら →
+          </a>
+        </div>
+        
+        <!-- まもろうよ こころ -->
+        <div class="emergency-item">
+          <div class="emergency-item-name">まもろうよ こころ（厚労省）</div>
+          <div class="emergency-item-desc">不安や悩みを抱える方への相談窓口まとめ</div>
+          <a href="https://www.mhlw.go.jp/mamorouyokokoro/" target="_blank" rel="noopener noreferrer" class="emergency-item-link" style="font-size: 1rem;">
+            🌐 相談窓口を見る →
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <p class="footer-notice">
+      ※この情報は2025年12月時点のものです。最新情報は各団体にご確認ください。<br>
+      ※年末年始期間も「救急」は対応しています。体調が悪い時などは我慢せず助けを呼んでください。<br>
+      ※生活保護の申請はFAXや夜間休日窓口等でも可能です。
+    </p>
+    <p class="footer-credit">
+      情報提供：大西連氏の記事より（リスト作成協力：ホームレス支援全国ネットワークほか）
+    </p>
+  </footer>
+
+  <!-- このサイトについてモーダル -->
+  <div class="modal-overlay" id="about-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close" aria-label="閉じる">×</button>
+      <h2 class="modal-title">このサイトについて</h2>
+      <div class="modal-body">
+        <p>年末年始の支援活動を検索できるデータベースです。<br>
+        【地域】【日付】【支援メニュー】で絞り込めます。</p>
+        
+        <h3>掲載情報</h3>
+        <p>NPO法人もやい理事長の<a href="https://news.yahoo.co.jp/expert/authors/ohnishiren" target="_blank" rel="noopener noreferrer">大西連</a>さんが収集したPDF形式の支援情報を元に、検索性を高める目的でデータ構造の整理などを処理しました。</p>
+        <p><a href="https://scrapbox.io/healthy-sato-mami/healthy-sato" target="_blank" rel="noopener noreferrer">佐藤まみ</a>個人が試験的に作成したものです。<br>
+        データ変換作業はAIに手伝ってもらいました。</p>
+        <p class="modal-caution">そのためご利用の際は、大変お手数ですが正確な情報を出典より必ずご確認いただけますようお願いします🙇</p>
+        
+        <h3>出典</h3>
+        <p>【年末年始】生活に困ったときの相談先リスト（2025〜2026年）<br>
+        <a href="https://news.yahoo.co.jp/expert/authors/ohnishiren" target="_blank" rel="noopener noreferrer">https://news.yahoo.co.jp/expert/authors/ohnishiren</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
