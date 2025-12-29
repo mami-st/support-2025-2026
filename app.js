@@ -363,6 +363,12 @@
     // 常に下方向に表示（z-indexで前面に出す）
     popover.classList.remove('position-top');
     
+    // カードにクラスを追加してz-indexを上げる
+    const card = btn.closest('.offer-card');
+    if (card) {
+      card.classList.add('popover-open');
+    }
+    
     btn.classList.add('active');
     popover.classList.add('active');
   }
@@ -370,6 +376,12 @@
   function closePopover(btn, popover) {
     btn.classList.remove('active');
     popover.classList.remove('active');
+    
+    // カードからクラスを削除
+    const card = btn.closest('.offer-card');
+    if (card) {
+      card.classList.remove('popover-open');
+    }
   }
   
   function closeAllPopovers() {
@@ -377,7 +389,14 @@
       popover.classList.remove('active');
       const popoverId = popover.dataset.popover;
       const btn = document.querySelector(`.offer-info-btn[data-popover-toggle="${popoverId}"]`);
-      if (btn) btn.classList.remove('active');
+      if (btn) {
+        btn.classList.remove('active');
+        // カードからクラスを削除
+        const card = btn.closest('.offer-card');
+        if (card) {
+          card.classList.remove('popover-open');
+        }
+      }
     });
   }
 

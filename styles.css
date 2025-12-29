@@ -452,6 +452,12 @@ button {
   padding: var(--spacing-card);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: visible;
+}
+
+.offer-card.popover-open {
+  z-index: 999;
 }
 
 .offer-card:hover {
@@ -1282,7 +1288,7 @@ button {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   padding: var(--spacing-md);
-  z-index: 100;
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4px);
