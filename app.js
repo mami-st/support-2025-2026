@@ -454,6 +454,14 @@
           </button>
         </div>
         <div class="offer-popover-body">${escapeHtml(offer.sourceText)}</div>
+        <div class="offer-popover-footer">
+          <div class="offer-popover-source-label">出典</div>
+          <div class="offer-popover-source-text">
+            <a href="https://news.yahoo.co.jp/expert/authors/ohnishiren" target="_blank" rel="noopener noreferrer">
+              【年末年始】生活に困ったときの相談先リスト（2025〜2026年）
+            </a>
+          </div>
+        </div>
       </div>
     ` : '';
 
