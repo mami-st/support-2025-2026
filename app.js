@@ -306,6 +306,79 @@
     // フラットなカードリストとして描画
     const html = state.filteredOffers.map(offer => createOfferCard(offer)).join('');
     elements.offersGrid.innerHTML = html;
+    
+    // ポップオーバーのイベントリスナーを設定
+    setupPopoverListeners();
+  }
+
+  // ============================================
+  // ポップオーバー制御
+  // ============================================
+  function setupPopoverListeners() {
+    const infoButtons = document.querySelectorAll('.offer-info-btn');
+    
+    infoButtons.forEach(btn => {
+      const popoverId = btn.dataset.popoverToggle;
+      const popover = document.querySelector(`.offer-popover[data-popover="${popoverId}"]`);
+      
+      if (!popover) return;
+      
+      const closeBtn = popover.querySelector('.offer-popover-close');
+      
+      // ボタンクリックでポップオーバー表示/非表示
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        const isActive = popover.classList.contains('active');
+        
+        // 他のポップオーバーを閉じる
+        closeAllPopovers();
+        
+        // このポップオーバーを開く（既に開いていたら閉じたままにする）
+        if (!isActive) {
+          openPopover(btn, popover);
+        }
+      });
+      
+      // 閉じるボタン
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closePopover(btn, popover);
+        });
+      }
+      
+      // ポップオーバー内クリックはバブリングを止める
+      popover.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    });
+    
+    // ポップオーバー外クリックで閉じる（一度だけ登録）
+    document.removeEventListener('click', closeAllPopovers);
+    document.addEventListener('click', closeAllPopovers);
+  }
+  
+  function openPopover(btn, popover) {
+    // 常に下方向に表示（z-indexで前面に出す）
+    popover.classList.remove('position-top');
+    
+    btn.classList.add('active');
+    popover.classList.add('active');
+  }
+  
+  function closePopover(btn, popover) {
+    btn.classList.remove('active');
+    popover.classList.remove('active');
+  }
+  
+  function closeAllPopovers() {
+    document.querySelectorAll('.offer-popover.active').forEach(popover => {
+      popover.classList.remove('active');
+      const popoverId = popover.dataset.popover;
+      const btn = document.querySelector(`.offer-info-btn[data-popover-toggle="${popoverId}"]`);
+      if (btn) btn.classList.remove('active');
+    });
   }
 
   // ============================================
@@ -349,13 +422,32 @@
       ? `<a href="${escapeHtml(offer.url)}" target="_blank" rel="noopener noreferrer" class="offer-provider-link">${escapeHtml(offer.providerName)}</a>`
       : `<span class="offer-provider">${escapeHtml(offer.providerName)}</span>`;
 
+    // ポップオーバー（原文がある場合のみ）
+    const infoButton = hasSource ? `
+      <button type="button" class="offer-info-btn" data-popover-toggle="${offer.id}" aria-label="原文を表示">
+        <i class="fa-solid fa-circle-info"></i>
+      </button>
+      <div class="offer-popover" data-popover="${offer.id}">
+        <div class="offer-popover-header">
+          <span class="offer-popover-title">原文</span>
+          <button type="button" class="offer-popover-close" aria-label="閉じる">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="offer-popover-body">${escapeHtml(offer.sourceText)}</div>
+      </div>
+    ` : '';
+
     return `
       <article class="offer-card" data-offer-id="${offer.id}">
         <!-- サービス種類タグ -->
         <div class="offer-service-tags">${serviceTags}</div>
         
-        <!-- サービス名をメインに -->
-        <h3 class="offer-service-name">${escapeHtml(offer.serviceName)}</h3>
+        <!-- カードヘッダー（サービス名 + 情報アイコン） -->
+        <div class="offer-card-header">
+          <h3 class="offer-service-name">${escapeHtml(offer.serviceName)}</h3>
+          ${infoButton}
+        </div>
         
         <!-- 団体名・地域はサブ情報 -->
         <div class="offer-sub-info">
@@ -401,14 +493,6 @@
             </div>
           ` : ''}
         </div>
-        
-        <!-- 詳細（原文）折りたたみ -->
-        ${hasSource ? `
-          <details class="offer-details-collapse">
-            <summary class="offer-details-summary">詳細</summary>
-            <div class="offer-source-text">${escapeHtml(offer.sourceText)}</div>
-          </details>
-        ` : ''}
       </article>
     `;
   }
